@@ -21,10 +21,12 @@ ignore: false
 - `List` 评论数量、样式
 - 归档
 - SEO
+- !!! github pages **static html map**
 
 ### bugs
  - [tootip of tags](#toc_18)
  - 迁移项目目录，重构目录结构
+ - `css` => `scss` 与样式重新整理、规范
 
 
 ## 开发
@@ -122,6 +124,30 @@ if(selectedTag.length > 0 && !isElementInViewport(selectedTag)) {
     selectedTag[0].scrollIntoView({ behavior: "smooth" });
 }
 ```
+
+### 16.9.13
+#### 部署倒 `github pages`
+今天把项目部署到了线上后才发现一个 2b 的事情：`github pages` 并不支持 **`rewrite`**。
+
+想了很多办法，甚至一度跑去开通了 `amazon` 的 `aws`，可是在这个过程中，心里一直念叨着：我写这个不就是为了弄一个纯静态的么，上 `vps` 不是坑自己么。。。
+
+github 说对 jekyll 有一个插件支持，但我没调试那个。
+
+于是想通过 `hack` 办法来实现，发现 gp 所有找不到的页面都会定向到 `404.html`，所以直接将该页面写为类似 `index.html` 的入口文件。问题解决。。
+
+但是这样做应该有明显的问题：
+
+- seo 问题
+- 资源引用路径必须都使用绝对路径
+
+故这只是一个临时的办法，若想实现静态化，除了虚拟出所有的 html 文件，貌似没有其他办法。（这个会在 `build.js` 生成文件的时候，将所有的 `html map` 生成）
+
+P.S. `404.html` 真是好 `low` 的办法~
+
+#### 移动端样式
+部署后顺手写了点样式，由于之前的一部分是在 `PB` 项目开始之前写的，发现之前的样式写的好 low，又提不起精神改，头痛。。。
+
+将样式整理与 `scss` 重写放进 `todo` 吧 -。-
 
 
 ## 维护
