@@ -1,7 +1,7 @@
 title: Development calendar
 author: azlar
 date: 2016-09-08 21:20:20
-tags: [develop calendar, another test tag, third test tag, a very long tag test let's test and console it, another a very long tag test let's test and console it, test]
+tags: [develop calendar]
 ignore: false
 
 ---
@@ -27,6 +27,7 @@ ignore: false
  - [tootip of tags](#toc_18)
  - 迁移项目目录，重构目录结构
  - `css` => `scss` 与样式重新整理、规范
+ - 回到顶部小火箭的 `hash`
 
 
 ## 开发
@@ -52,7 +53,7 @@ P.S. 再次感慨很多时候不能纯凭机器，有时一个标识就可以解
 
 #### 长=long tag
 在 `tag-list` 中，会截取一部分（:hover 的时候提示显示），在文档列表页，不会截取：
-![long tag hover hint](//blog.azlar.cn/build/images/long tag hover effect.gif)
+![long tag hover hint](//blog.azlar.cc/images/long tag hover effect.gif)
 
 #### 文件移动
 调用 `build.js` 的时候，会同时移动图片了，但是不能使用相对路径（由于 `index.html` 在 `build/` 的外面）。
@@ -125,7 +126,7 @@ if(selectedTag.length > 0 && !isElementInViewport(selectedTag)) {
 }
 ```
 
-### 16.9.13
+### 16.9.14
 #### 部署倒 `github pages`
 今天把项目部署到了线上后才发现一个 2b 的事情：`github pages` 并不支持 **`rewrite`**。
 
@@ -202,6 +203,13 @@ P.S. 感冒了，脑子不是很清醒。
 感谢 `stackoverflow` 的小哥给出的解决方案：[jsfiddle](https://jsfiddle.net/TheBigDMo1/k2ahruyb/4/)，他的坚持不懈真是让我倍感羞愧。这个问题我还是准备先留一下，看看（不久的）将来有没有更好的解决方案。
 
 ####
+
+### 16.9.18
+#### 移动文件需要 `sodu` 权限 解决
+使用 `fs-extra` 的时候，由于没有权限操作 `.DS_STORE`，所以加了 sodu，后来觉得不方便，将 `build` 文件夹删除后，再删除 `source` 内的 `.DS_STORE` 
+就可以不用 `sudo` 来 `copy` 了。
+
+
 
 
 
