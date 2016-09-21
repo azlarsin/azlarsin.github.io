@@ -1,6 +1,6 @@
 title: Php Interview Questions
 author: azlar
-date: 2016-03-09 21:00:20
+date: '2016-03-09 21:00:20'
 tags: [php, interview, 面试]
 ignore: false
 ---

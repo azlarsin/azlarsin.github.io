@@ -1,6 +1,6 @@
 title: about
 author: azlar
-date: 2016-09-08 16:20:20
+date: '2016-09-08 16:20:20'
 tags: ['test', 'zxc']
 ignore: true
 

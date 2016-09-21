@@ -1,6 +1,6 @@
 title: Development calendar
 author: azlar
-date: 2016-09-08 21:20:20
+date: '2016-09-08 21:20:20'
 tags: [develop calendar]
 ignore: false
 
@@ -16,12 +16,12 @@ ignore: false
 - `List` 样式
 - `Article` 样式
 - `Pagination`
-- `build.js` 移动文件问题（现在需要 sudo 权限，由于有一个 `.DS_STORE` 文件存在）
-- `build.js` => `new post`（命令生成 `yaml` 配置文件）
+- <del> `build.js` 移动文件问题（现在需要 sudo 权限，由于有一个 `.DS_STORE` 文件存在） </del>
+- <del>`build.js` => `new post`（命令生成 `yaml` 配置文件）</del>
 - `List` 评论数量、样式
 - 归档
 - SEO
-- !!! github pages **static html map**
+- <del> !!! github pages **static html map** </del>
 
 ### bugs
  - [tootip of tags](#toc_18)
@@ -160,6 +160,41 @@ P.S. `404.html` 真是好 `low` 的办法~
 
 不过考虑以后可能会迁移到服务器，到时候会用数据库，所以现在就暂时保持这个蛋疼的模式吧。
 
+#### 路由追加 `trailing slash`
+为了配合静态路由，将所有的路由模式由 `domain/about` 改成了 `domain/about/`。
+
+### 16.9.20
+#### new post
+终于把这个给写了，会生成一个 `.md` 文件：
+
+```shell
+node build.js -new about
+```
+
+```
+about-1.md (about.md exists.)
+----
+title: about-1
+author: azlar
+date: '2016-09-20 17:45:14'
+tags: ''
+
+---
+
+<!-- desc -->
+```
+一些小功能：
+	
+- `yaml` 信息写入
+- 检查文件名、更新文件名：
+		
+		`node build.js -new a` => `a.md`
+		`node build.js -new a` => `a-1.md`
+		`node build.js -new a` => `a-2.md`
+		`node build.js -new a-1` => `a-1-1.md`
+		`node build.js -new %a]` => `a-3.md`
+- 默认加了 `desc` 标识符
+
 
 ## 维护
 
@@ -219,7 +254,25 @@ P.S. 感冒了，脑子不是很清醒。
 使用 `fs-extra` 的时候，由于没有权限操作 `.DS_STORE`，所以加了 sodu，后来觉得不方便，将 `build` 文件夹删除后，再删除 `source` 内的 `.DS_STORE` 
 就可以不用 `sudo` 来 `copy` 了。
 
+### 16.9.20
+#### 统一了 `date` 的格式
+如果不是字符串（无引号）：
 
+```
+---
+date: 2016-09-08 21:20:20
+---
+```
+
+会导致 `yaml` 读取的时候自动转换成 `Date()`，操作起来还得转成 `UTC`，于是直接将所有的时间写成字符串：
+
+```
+---
+date: '2016-09-08 21:20:20'
+---
+```
+
+这样就不用每次读的时候转换了。
 
 
 
