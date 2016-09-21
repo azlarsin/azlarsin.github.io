@@ -51,7 +51,7 @@ ignore: false
 
 P.S. 再次感慨很多时候不能纯凭机器，有时一个标识就可以解决的问题，用语言却可以派生出很多问题。
 
-#### 长=long tag
+#### long tag
 在 `tag-list` 中，会截取一部分（:hover 的时候提示显示），在文档列表页，不会截取：
 ![long tag hover hint](//blog.azlar.cc/images/long tag hover effect.gif)
 

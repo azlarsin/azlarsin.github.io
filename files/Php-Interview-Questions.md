@@ -1,11 +1,11 @@
 title: Php Interview Questions
 author: azlar
-date: '2016-03-09 21:00:20'
+date: '2016-09-19 21:00:20'
 tags: [php, interview, 面试]
 ignore: false
 ---
 
-3.9 日 php 面试总结，不定期更新。
+16.3.9 日 php 面试总结，不定期更新。
 <!-- desc -->
 
 # 3.9 - Sum up
