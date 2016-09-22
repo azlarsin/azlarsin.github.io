@@ -1,4 +1,4 @@
-title: Development calendar
+title: Development Calendar
 author: azlar
 date: '2016-09-08 21:20:20'
 tags: [develop calendar]
@@ -15,13 +15,14 @@ ignore: false
 - 根据 `Widget` 宽度与 `Tags`、`Articles` 的字体大小计算其最大显示字符数
 - `List` 样式
 - `Article` 样式
-- `Pagination`
+- **`Pagination`**
 - <del> `build.js` 移动文件问题（现在需要 sudo 权限，由于有一个 `.DS_STORE` 文件存在） </del>
 - <del>`build.js` => `new post`（命令生成 `yaml` 配置文件）</del>
 - `List` 评论数量、样式
 - 归档
 - SEO
 - <del> !!! github pages **static html map** </del>
+- 初次加载的时候，`config.json` 请求了两次：`Widget` 与 `ListComponent` 同时发起了 `ajax` 请求
 
 ### bugs
  - [tootip of tags](#toc_18)
@@ -195,6 +196,41 @@ tags: ''
 		`node build.js -new %a]` => `a-3.md`
 - 默认加了 `desc` 标识符
 
+### 16.9.22
+#### tag-widget、article-widget 字符数自动适配
+思路：
+ 
+ - 计算 widget-panel 的宽度与字符能使用的宽度（`widgetPanelWidth - padding-left - padding-right`）
+ - 计算最多能允许显示多少字符，截取
+ - 通过 `state` 切换，动态控制字的截取
+ - 为 `window` 绑定 `resize` 事件
+
+效果：
+![tag-widget resize event](//blog.azlar.cc/images/tag-widget resize event.gif)
+
+
+遇到的坑：
+
+ - `unicode` 字符截取、长度的计算。
+ - `window.resize` 监控 resize end 的事件。
+
+
+	```javascript
+	clearTimeout(window.resizedFinished);
+	window.resizedFinished = setTimeout(() => {
+	var widgetPanel = document.getElementById("widget-panel");
+	if(null !== widgetPanel) {
+	
+	    this.setState({
+	        widgetPanelWidth: parseInt(window.getComputedStyle(widgetPanel).width)
+	    }, () => {
+	        console.log(this.state)
+	    });
+	}
+	
+	// alert('Resized finished.');
+	}, 250);
+	```
 
 ## 维护
 
@@ -274,6 +310,19 @@ date: '2016-09-08 21:20:20'
 
 这样就不用每次读的时候转换了。
 
+### 16.9.21
+#### 优化了一下创建新文件的命名问题
+美化了一下文章标题里含有 空格的情况，由于 `\s-\s` 我经常会使用：
+
+```
+bug
+`node build.js -new 'a - b'` => `a---b.md`
+
+fixed
+`node build.js -new 'a - b'` => `a-b.md`
+`node build.js -new 'a -        b'` => `a-b-1.md`
+`node build.js -new 'a            -        b'` => `a-b-2.md`
+```
 
 
 
