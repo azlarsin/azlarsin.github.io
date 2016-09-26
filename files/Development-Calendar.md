@@ -188,12 +188,13 @@ tags: ''
 	
 - `yaml` 信息写入
 - 检查文件名、更新文件名：
-		
-		`node build.js -new a` => `a.md`
-		`node build.js -new a` => `a-1.md`
-		`node build.js -new a` => `a-2.md`
-		`node build.js -new a-1` => `a-1-1.md`
-		`node build.js -new %a]` => `a-3.md`
+```shell
+`node build.js -new a` => `a.md`
+`node build.js -new a` => `a-1.md`
+`node build.js -new a` => `a-2.md`
+`node build.js -new a-1` => `a-1-1.md`
+`node build.js -new %a]` => `a-3.md`
+```
 - 默认加了 `desc` 标识符
 
 ### 16.9.22
@@ -323,7 +324,7 @@ fixed
 
 ### 16.9.26
 #### `markdown` 格式错误
-`macdown` 的格式与 `marked` 略有差异。代码块需要挨着上行内容，不能隔行写，否则转义出来的格式有问题。
+`macdown` 的格式与 `marked` 略有差异。写 `list` 的时候，代码块需要挨着上行内容，不能隔行写，否则转义出来的格式有问题。
 
 #### 手机显示文章日期显示错误
 由于之前的显示方法是对 `yaml` 信息进行转义显示，手机转义失败（`new Date(date)` 失败），这次直接当做字符串处理了(因为之前保存的时候已经当做字符串处理而部当做 `date` 信息保存)。
