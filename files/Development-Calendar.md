@@ -188,13 +188,13 @@ tags: ''
 	
 - `yaml` 信息写入
 - 检查文件名、更新文件名：
-```shell
-`node build.js -new a` => `a.md`
-`node build.js -new a` => `a-1.md`
-`node build.js -new a` => `a-2.md`
-`node build.js -new a-1` => `a-1-1.md`
-`node build.js -new %a]` => `a-3.md`
-```
+  ```shell
+	`node build.js -new a` => `a.md`
+	`node build.js -new a` => `a-1.md`
+	`node build.js -new a` => `a-2.md`
+	`node build.js -new a-1` => `a-1-1.md`
+	`node build.js -new %a]` => `a-3.md`
+	```
 - 默认加了 `desc` 标识符
 
 ### 16.9.22
