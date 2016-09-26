@@ -214,7 +214,6 @@ tags: ''
  - `unicode` 字符截取、长度的计算。
  - `window.resize` 监控 resize end 的事件。
 
-
 	```javascript
 	clearTimeout(window.resizedFinished);
 	window.resizedFinished = setTimeout(() => {
