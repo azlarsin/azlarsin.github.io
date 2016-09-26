@@ -213,20 +213,19 @@ tags: ''
 
  - `unicode` 字符截取、长度的计算。
  - `window.resize` 监控 resize end 的事件。
-
 	```javascript
 	clearTimeout(window.resizedFinished);
 	window.resizedFinished = setTimeout(() => {
 	var widgetPanel = document.getElementById("widget-panel");
 	if(null !== widgetPanel) {
-	
+		
 	    this.setState({
 	        widgetPanelWidth: parseInt(window.getComputedStyle(widgetPanel).width)
 	    }, () => {
 	        console.log(this.state)
 	    });
 	}
-	
+		
 	// alert('Resized finished.');
 	}, 250);
 	```
@@ -237,16 +236,15 @@ tags: ''
 由于顶部有 `navigation-bar` 的存在，导致页面自动定位 `anchor` 的时候，会被遮蔽，故需要
 
 - 方法1， css
-
-	```css
-	.blog .wrapper .content *[id]:before {
-	    display: block;
-	    content: "";
-	    margin-top: -82px;
-	    height: 82px;
-	    visibility: hidden;
-    }
-	```
+```css
+.blog .wrapper .content *[id]:before {
+    display: block;
+    content: "";
+    margin-top: -82px;
+    height: 82px;
+    visibility: hidden;
+}
+```
 	
 - 方法二，js listen window.hasChange && locatin.href，then auto scroll the navigation-bar.height。
 - 这种方法会有一个问题：**`点击同一个 hash 的时候，浏览器会认为当前位置并不是该 hash 所在的位置，然后重新定位，而此次定位，不会触发刚才写的 auto scoll 方法。`** 解决：为目录中的 `<a>` 添加一个 listener：该 hash 与当前 location.hash 相同的时候，prenentDefault();
@@ -323,8 +321,9 @@ fixed
 `node build.js -new 'a            -        b'` => `a-b-2.md`
 ```
 
+### 16.9.26
+#### `markdown` 格式错误
+`macdown` 的格式与 `marked` 略有差异。代码块需要挨着上行内容，不能隔行写，否则转义出来的格式有问题。
 
-
-
-    
-    
+#### 手机显示文章日期显示错误
+由于之前的显示方法是对 `yaml` 信息进行转义显示，手机转义失败（`new Date(date)` 失败），这次直接当做字符串处理了(因为之前保存的时候已经当做字符串处理而部当做 `date` 信息保存)。
