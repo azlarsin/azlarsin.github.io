@@ -12,15 +12,15 @@ ignore: false
 <!-- desc -->
 ## todo
 ### 功能
-- 根据 `Widget` 宽度与 `Tags`、`Articles` 的字体大小计算其最大显示字符数
-- `List` 样式
+- <del>根据 `Widget` 宽度与 `Tags`、`Articles` 的字体大小计算其最大显示字符数</del>
+- `List` 样式 （page 的 comments 数量）
 - `Article` 样式
 - **`Pagination`**
 - <del> `build.js` 移动文件问题（现在需要 sudo 权限，由于有一个 `.DS_STORE` 文件存在） </del>
 - <del>`build.js` => `new post`（命令生成 `yaml` 配置文件）</del>
 - `List` 评论数量、样式
 - 归档
-- SEO
+- SEO （sitemap）
 - <del> !!! github pages **static html map** </del>
 - 初次加载的时候，`config.json` 请求了两次：`Widget` 与 `ListComponent` 同时发起了 `ajax` 请求
 
@@ -29,6 +29,7 @@ ignore: false
  - 迁移项目目录，重构目录结构
  - `css` => `scss` 与样式重新整理、规范
  - 回到顶部小火箭的 `hash`
+ - 列表页简介部分可能含有 `markdown` 语法
 
 
 ## 开发
@@ -248,7 +249,7 @@ tags: ''
 ```
 	
 - 方法二，js listen window.hasChange && locatin.href，then auto scroll the navigation-bar.height。
-- 这种方法会有一个问题：**`点击同一个 hash 的时候，浏览器会认为当前位置并不是该 hash 所在的位置，然后重新定位，而此次定位，不会触发刚才写的 auto scoll 方法。`** 解决：为目录中的 `<a>` 添加一个 listener：该 hash 与当前 location.hash 相同的时候，prenentDefault();
+- 这种方法会有一个问题：**`点击同一个 hash 的时候，浏览器会认为当前位置并不是该 hash 所在的位置，然后重新定位，而此次定位，不会触发刚才写的 auto scoll 方法。`** 解决：为目录中的 `<a>` 添加一个 listener：该 hash 与当前 location.hash 相同的时候，preventDefault();
 	
 
 
@@ -328,3 +329,10 @@ fixed
 
 #### 手机显示文章日期显示错误
 由于之前的显示方法是对 `yaml` 信息进行转义显示，手机转义失败（`new Date(date)` 失败），这次直接当做字符串处理了(因为之前保存的时候已经当做字符串处理而部当做 `date` 信息保存)。
+
+#### 左侧 `Widget` bug
+##### 描述
+当浏览一篇文章时，点击 about 页，`Widget` 会由于之前隐藏了，在渲染 `Tags` 组件的时候，计算出来的宽度是 0；随着 scrollbar 自动滚动到最上，widget 重新获取到宽度，而这个时候左侧的 *tags* 已经渲染完毕，*tag* 显示全部被缩略。
+
+##### 解决
+在 `Tags` 组件内，初次渲染时，宽度计算由 `parseInt(window.getComputedStyle(widgetPanel).width)` 变为 `document.body.offsetWidth * 0.22 * 0.9`（与 `css` 一致）。
