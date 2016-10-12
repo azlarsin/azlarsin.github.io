@@ -255,7 +255,6 @@ ln.insert('c');
 ln.insert('d');
 ln.insert('e');
 
-
 ln.delete('d');
 
 ln.insert('x');
