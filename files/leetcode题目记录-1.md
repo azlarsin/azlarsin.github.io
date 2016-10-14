@@ -1,4 +1,4 @@
-title: leetcode题目记录 - 1
+title: leetcode 题目记录 - 1
 author: azlar
 date: '2016-10-11 13:13:32'
 tags: [leetcode, 算法, Two Sum, Add Two Numbers, Longest Substring Without Repeating Characters]
@@ -155,9 +155,7 @@ var addTwoNumbers = function(l1, l2) {
         let l2Val = l2 ? l2.val : 0;
         
         let x = l1Val + l2Val + carry;
-        
-        let node = new ListNode(-1);
-        
+                
         if(x >= 10) {
             x = x - 10;
             carry = 1;
@@ -188,7 +186,7 @@ var addTwoNumbers = function(l1, l2) {
 单链表忘的差不多了，写了好半天。。。
 
 ```javascript
-class LinkedNode {
+class LinkedList {
   
   constructor(headNode = 'head') {
     this.list = this._createNode(headNode);
@@ -247,7 +245,7 @@ class LinkedNode {
   }
 }
 
-var ln = new LinkedNode();
+var ln = new LinkedList();
 
 ln.insert('a');
 ln.insert('b');
