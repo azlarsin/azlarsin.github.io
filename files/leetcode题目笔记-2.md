@@ -1,4 +1,4 @@
-title: leetcode 题目笔记-2
+title: leetcode 题目笔记 - 2
 author: azlar
 date: '2016-10-13 12:02:21'
 tags: []
@@ -45,7 +45,7 @@ var findMedianSortedArrays = function(nums1, nums2) {
 		nums[key];
 };
 ```
-### another solution (159 - 90.57%)
+### another solution (159ms - 90.57%)
 在 discuss 区看了下，发现其实是有更好的解法的，上面的解法必须要排序一次。于是按别人的思路，又写了这个不需要排序的：算出两个中间 k 后，从头开始比对计数（只计算 k 次即可）。
 
 ```javascript
@@ -102,5 +102,6 @@ Given a string S, find the longest palindromic substring in S. You may assume th
 
 ### solution
 已卡壳。。。
+思路：用 hash 存储
 
 	
