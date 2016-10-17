@@ -336,3 +336,19 @@ fixed
 
 ##### 解决
 在 `Tags` 组件内，初次渲染时，宽度计算由 `parseInt(window.getComputedStyle(widgetPanel).width)` 变为 `document.body.offsetWidth * 0.22 * 0.9`（与 `css` 一致）。
+
+
+### 16.10.17
+#### border-radius
+给 `panel` 增加了 4px 的圆角，不知道以后会不会抽风改成直角。。
+
+#### `plain` 显示
+转了一篇纯文本，增加了这个显示模式。
+
+在 `.md` 内的头信息内，增加：
+
+```
+plain: true
+```
+
+会在文章处，获得一个段落缩进的效果。

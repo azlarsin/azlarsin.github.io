@@ -1,7 +1,7 @@
 title: leetcode 题目笔记 - 2
 author: azlar
 date: '2016-10-13 12:02:21'
-tags: []
+tags: [leetcode, 算法, Median of Two Sorted Arrays, Longest Palindromic Substring, ZigZag Conversion, Reverse Integer]
 
 ---
 [leetcode](https://leetcode.com) 做题记录。
