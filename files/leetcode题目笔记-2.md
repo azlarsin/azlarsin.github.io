@@ -104,4 +104,148 @@ Given a string S, find the longest palindromic substring in S. You may assume th
 已卡壳。。。
 思路：用 hash 存储
 
+
+## 6. ZigZag Conversion
+### problem
+The string `"PAYPALISHIRING"` is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+	P   A   H   N
+	A P L S I I G
+	Y   I   R
+	
+And then read line by line: `"PAHNAPLSIIGYIR"`
+Write the code that will take a string and make this conversion given a number of rows:
+
+	string convert(string text, int nRows);
+	
+`convert("PAYPALISHIRING", 3)` should return `"PAHNAPLSIIGYIR"`.
+
+### solution(148ms - 72.63%, 16.10.17)
+开始不明白题目的意思，搜了一下。
+
+![](//blog.azlar.cc/images/leetcode/ZigZag Conversion.png)
+
+```javascript
+/**
+ * @param {string} s
+ * @param {number} numRows
+ * @return {string}
+ */
+var convert = function(s, numRows) {
+    let text = Array(numRows).fill(''), line = 0, len = s.length;
+    
+    if(numRows === 1 || len <= numRows) {
+        return s;
+    }
+    
+    const keyLoop = 2 * numRows - 2;
+
+    for(let i = 0;i < len;i++) {
+        line = i % keyLoop;
+        line = line > (numRows - 1) ? (keyLoop - line) : line;
+        text[line] += s[i];
+    }
+    return text.join("");
+};
+```	
+
+### other good solutions
+faster: [https://discuss.leetcode.com/topic/56663/a-fast-javascript-implementation](https://discuss.leetcode.com/topic/56663/a-fast-javascript-implementation)
+
+```javascript
+var convert = function(s, numRows) {
+    var result = [];
+    var step = 1, index = 0;
+    for(var i = 0; i < s.length; i++){
+        if(result[index] === undefined){//'undefined' will be put into string without this
+            result[index] = '';
+        }
+        result[index] += s[i];
+        if(index === 0){
+            step = 1;
+        }else if(index === numRows - 1){
+            step = -1;
+        }
+        index += step;
+    }
+    return result.join('');
+};
+```
+
+## 7. Reverse Integer
+### problem
+Reverse digits of an integer.
+
+**Example1:** x = 123, return 321
+**Example2:** x = -123, return -321
+
+**spoilers:**
+
+	Have you thought about this?
+	Here are some good questions to ask before coding. Bonus points for you if you have already thought through this!
+	
+	If the integer's last digit is 0, what should the output be? ie, cases such as 10, 100.
+	
+	Did you notice that the reversed integer might overflow? Assume the input is a 32-bit integer, then the reverse of 1000000003 overflows. How should you handle such cases?
+	
+	For the purpose of this problem, assume that your function returns 0 when the reversed integer overflows.
+	
+
+###solution(132ms - 72.79%, 16.10.17)
+纯字符串反转，感觉还应该有更好的解决方案。
+
+```javascript
+/**
+ * @param {number} x
+ * @return {number}
+ */
+ var reverse = function(x) {
+    let pn = x >= 0 ? 1 : -1,
+    str = Math.abs(x).toString(), newStr = '', len = str.length;
+    
+    const MAX = 2147483647;
+    
+    if(len <= 1) {
+      return x;
+    }
+  
+    i = len - 1;
+    while(i >= 0) {
+        newStr += str[i];
+        i--;
+    }
+  
+    let number = Number(newStr);
+  
+    return number > MAX ? 0 : number * pn;
+};
+```
+
+### other good solutions
+看了下讨论区，貌似我会错意了，字符串反转确实略 low。。。一般都用求模逐步求出最后一位。
+
+```javascript
+var reverse = function(x) {
+var flag = x >= 0 ? 1: -1;
+var target = Math.abs(x);
+var maxNumIn32Bit = Math.pow(2, 31)-1;
+var sum = 0;
+  
+while(target > 0){
+	var tmp = target % 10;
+	    
+	target = Math.floor(target/10);
+	    
+	sum = sum * 10 + tmp;
+	    
+	if(sum == Infinity || sum > maxNumIn32Bit){
+	  return 0;
+	} 
+}
+  
+return sum * flag;
+};
+```
+
+
 	
