@@ -223,22 +223,15 @@ public class Solution {
 }
 ```
 
-感觉这题，挺难想到的。
-
-### Editorial Solution
-代码同上边的 O(n)
+**Editorial Solution**
 > [https://leetcode.com/articles/container-most-water/](https://leetcode.com/articles/container-most-water/)
 >
 > *array =>* `[1 8 6 2 5 4 8 3 7]`
 > 
-
-
-
-![](http://blog.azlar.cc/images/leetcode/11_Container_Water_1.png) | ![](http://blog.azlar.cc/images/leetcode/11_Container_Water_2.png) | ![](http://blog.azlar.cc/images/leetcode/11_Container_Water_3.png) | ![](http://blog.azlar.cc/images/leetcode/11_Container_Water_4.png) 
------------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------
-![](http://blog.azlar.cc/images/leetcode/11_Container_Water_5.png) | ![](http://blog.azlar.cc/images/leetcode/11_Container_Water_6.png) | ![](http://blog.azlar.cc/images/leetcode/11_Container_Water_7.png) | ![](http://blog.azlar.cc/images/leetcode/11_Container_Water_8.png) 
-
 > ![](http://blog.azlar.cc/images/leetcode/11_Container_Water.gif)
+
+感觉这题，挺难想到的。
+
 
 
 
