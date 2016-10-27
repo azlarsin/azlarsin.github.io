@@ -229,19 +229,6 @@ public class Solution {
 > *array =>* `[1 8 6 2 5 4 8 3 7]`
 > 
 > ![](http://blog.azlar.cc/images/leetcode/11_Container_Water.gif)
-> 
-> ![](https://leetcode.com/media/original_images/11_Container_Water.gif)
+
 
 感觉这题，挺难想到的。
-
-
-
-
-
-
-
-
-
-
-
-
