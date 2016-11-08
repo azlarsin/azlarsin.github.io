@@ -1,10 +1,11 @@
 title: leetcode 题目笔记 - 3
 author: azlar
 date: '2016-10-25 14:42:47'
-tags: []
+tags: [leetcode, 算法, Regular Expression Matching, Container With Most Water]
 
 ---
 
+[leetcode](https://leetcode.com) 做题记录。
 <!-- desc -->
 
 # 10.25
@@ -232,3 +233,34 @@ public class Solution {
 
 
 感觉这题，挺难想到的。
+
+
+# 11.2
+
+## 12. Integer to Roman
+### problem
+Given an integer, convert it to a roman numeral.
+
+Input is guaranteed to be within the range from 1 to 3999.
+
+### solution
+#### Roman numerals rules
+先看下罗马数字的规则：
+> 罗马数字是阿拉伯数字传入之前使用的一种数码。罗马数字采用七个罗马字母作数字、即Ⅰ（1）、X（10）、C（100）、M（1000）、V（5）、L（50）、D（500）。
+> 
+> 记数的方法：
+> 
+> 1. 相同的数字连写，所表示的数等于这些数字相加得到的数，如 Ⅲ=3；
+> 2. 小的数字在大的数字的右边，所表示的数等于这些数字相加得到的数，如 Ⅷ=8、Ⅻ=12；
+> 3. 小的数字（限于 Ⅰ、X 和 C）在大的数字的左边，所表示的数等于大数减小数得到的数，如 Ⅳ=4、Ⅸ=9；
+> 4. 在一个数的上面画一条横线，表示这个数增值 1,000 倍，如 <span style="text-decoration: overline;">V</span> = 5000。
+
+
+#### code
+```javascript
+
+```
+
+
+
+ 
