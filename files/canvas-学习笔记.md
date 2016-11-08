@@ -98,7 +98,7 @@ this code will draw:
 
 difference:
 
-![](http://blog.azlar.cc/images/canvas/canvas-line-cap-1.png)
+![](http://blog.azlar.cc/images/canvas/canvas-line-cap-1.jpg)
 
 ## curves
 ### arc
