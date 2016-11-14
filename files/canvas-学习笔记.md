@@ -1,7 +1,7 @@
 title: canvas - 学习笔记
 author: azlar
 date: '2016-11-07 11:30:48'
-tags: []
+tags: [canvas, learn]
 
 ---
 
