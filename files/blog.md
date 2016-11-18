@@ -402,3 +402,36 @@ if(this.props.uuid !== props.uuid) {
 }
 ```
 
+
+### 16.11.18
+#### 重写了文件 build 时的生成规则
+先来看几条命令：
+之前一直使用 `title` 做判断，即生成同名文章的时候，`title` 亦会被修改。
+
+现在在生成 `file` 的时候，由 `title` 生成了一个临时变量 `fileName`，临时存储在 *yamlInfo*，此变量即是文件名，会在判断重名后、生成文件前被销毁。
+
+file 1:
+
+```shell
+node build.js -new 'wewe-ewasd asdas'
+
+# wewe-ewasd asdas created.
+# It will open after 2 second...
+# opening ./source/files/wewe-ewasd-asdas.md
+```
+
+file 2:
+
+```shell
+bogon:code_b azlar$ node build.js -new 'wewe-ewasd asdas'
+
+# wewe-ewasd-asdas-1 created.
+# It will open after 2 second...
+# opening ./source/files/wewe-ewasd-asdas-1.md
+```
+
+此时，两篇文章的 title 仍然是 `wewe-ewasd asdas`，而文件名不同（`route` 不同）。
+
+
+
+
