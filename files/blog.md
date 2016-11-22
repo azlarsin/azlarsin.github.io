@@ -439,6 +439,8 @@ bogon:code_b azlar$ node build.js -new 'wewe-ewasd asdas'
 
 使用 [cloudflare.com](cloudflare.com) 为博客增加 `https` 支持。
 
-#### 为图片资源添加了 `lazyload`
-采用了一个原生的库：[https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
+#### <del>为图片资源添加了 `lazyload`</del>
+<del>采用了一个原生的库：[https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)</del>
+
+暂时先去掉了，效果并不好，一直加载图片资源的问题（disable_cache 下，如果打开某篇文章后再打开别的文章，此时会卡住，必须等到上一篇文章的资源加载完毕），是由于文章都使用同一个 `Component` 导致的，得想办法处理。
 
