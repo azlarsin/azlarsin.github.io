@@ -94,11 +94,11 @@ context.stroke();
 
 this code will draw:
 
-![](http://blog.azlar.cc/images/canvas/canvas-line-cap.png)
+![](//blog.azlar.cc/images/canvas/canvas-line-cap.png)
 
 difference:
 
-![](http://blog.azlar.cc/images/canvas/canvas-line-cap-1.jpg)
+![](//blog.azlar.cc/images/canvas/canvas-line-cap-1.jpg)
 
 ## curves
 ### arc
@@ -106,7 +106,7 @@ difference:
 > 
 > To create an arc with HTML5 Canvas, we can use the arc() method. Arcs are defined by a center point, a radius, a starting angle, an ending angle, and the drawing direction (either clockwise or anticlockwise).  Arcs can be styled with the `lineWidth`, `strokeStyle`, and `lineCap` properties.
 > 
-> ![](http://blog.azlar.cc/images/canvas/html5-canvas-arcs-diagram.png)
+> ![](//blog.azlar.cc/images/canvas/html5-canvas-arcs-diagram.png)
 > 
 > An arc is nothing more than a section of the circumference of an imaginary circle. This imaginary circle can be defined by `x`, `y`, and `radius`.
 >

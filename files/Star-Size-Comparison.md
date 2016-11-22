@@ -5,7 +5,7 @@ tags: [Star Size Comparison, Universe]
 
 ---
 
-一直以来对这些很感兴趣。
+Who am I, where am I.
 <!-- desc -->
 
 > from [https://www.youtube.com/watch?v=GoW8Tf7hTGA](https://www.youtube.com/watch?v=GoW8Tf7hTGA)
