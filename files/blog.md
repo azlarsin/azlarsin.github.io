@@ -439,4 +439,6 @@ bogon:code_b azlar$ node build.js -new 'wewe-ewasd asdas'
 
 使用 [cloudflare.com](cloudflare.com) 为博客增加 `https` 支持。
 
+#### 为图片资源添加了 `lazyload`
+采用了一个原生的库：[https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)
 
