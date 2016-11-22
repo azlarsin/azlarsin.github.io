@@ -432,6 +432,11 @@ bogon:code_b azlar$ node build.js -new 'wewe-ewasd asdas'
 
 此时，两篇文章的 title 仍然是 `wewe-ewasd asdas`，而文件名不同（`route` 不同）。
 
+### 16.11.22
+#### 添加了 `https` 支持
+参照：
+> https://zhuanlan.zhihu.com/p/22667528
 
+使用 [cloudflare.com](cloudflare.com) 为博客增加 `https` 支持。
 
 
