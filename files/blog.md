@@ -15,7 +15,7 @@ ignore: false
 - <del>根据 `Widget` 宽度与 `Tags`、`Articles` 的字体大小计算其最大显示字符数</del>
 - `List` 样式 （page 的 comments 数量）
 - `Article` 样式
-- **`Pagination`**
+- <del>**`Pagination`**</del>
 - <del> `build.js` 移动文件问题（现在需要 sudo 权限，由于有一个 `.DS_STORE` 文件存在） </del>
 - <del>`build.js` => `new post`（命令生成 `yaml` 配置文件）</del>
 - `List` 评论数量、样式
@@ -444,3 +444,65 @@ bogon:code_b azlar$ node build.js -new 'wewe-ewasd asdas'
 
 暂时先去掉了，效果并不好，一直加载图片资源的问题（disable_cache 下，如果打开某篇文章后再打开别的文章，此时会卡住，必须等到上一篇文章的资源加载完毕），是由于文章都使用同一个 `Component` 导致的，得想办法处理。
 
+
+### 16.12.16
+#### 增加了分页支持
+<del>目前还没支持刷新，有点懒得写呀 23333</del>
+
+后边重新增加了 404.html，可以刷新了。
+
+
+
+
+### 16.12.20
+#### 重写了左侧 widget 的 scroll 事件
+##### 原来
+今天发现之前写的：
+
+```javascript
+$(".tag-box.block").on( 'mousewheel DOMMouseScroll', function ( e ) {
+    var event = e.originalEvent,
+        d = event.wheelDelta || -event.detail;
+    
+    this.scrollTop += ( d < 0 ? 1 : (Math.abs(d) == 0 ? 0 : -1) ) * 15;
+    e.preventDefault();
+});
+```
+
+对 *wheel event* 支持的并不好，体验比较差。
+
+##### 重写
+问题的关键在于，滚动此 `div` 的时候，会触发 `body` 的 *scroll* ，导致` body` 滚动。
+
+
+Firefox 比较好，在 `scroll` 事件里，增加一个 `e.stopPropagation();` 即可防止 `scroll` 扩散到 `body`。
+
+
+chrome 没啥用，只能手写阻止：
+
+	1. 找到当前的 scroll position
+	2. 在顶部（底部），继续向上（下）滚动时，阻止事件，防止触发 body
+
+代码（使用 `onWheel` 绑定到 `widget` 上）
+```javascript
+//end
+if (
+    e.currentTarget.scrollTop === (e.currentTarget.scrollHeight - parseInt(window.getComputedStyle(e.currentTarget).height))
+    && e.deltaY > 0
+) {
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+//top
+if (e.currentTarget.scrollTop === 0 && e.deltaY < 0) {
+    e.stopPropagation();
+    e.preventDefault();
+}
+```
+
+这样会遇到的问题：滚动完毕后，移动鼠标的焦点其实还是在 `widget` 上，继续滚动，仍然会触发 `onWheel`，导致 `body` 不能滚动。
+
+于是为 onWheel 增加了一个 `if(isMouseOver)` 判断，`isMouseOver` 会在 `onMouseEnter` 与 `onScroll` 时设定为 *true*，`onMouseLeave` 的时候设定为 *false*。
+
+P.S. `onScroll` 修改 `isMouseOver`，是因为 mac 支持无焦点滚动，这时候当前页面没有获取到系统的焦点、`mouseEnter` 并不会触发。
