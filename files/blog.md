@@ -232,6 +232,64 @@ tags: ''
 	}, 250);
 	```
 
+
+
+
+### 16.11.7
+#### live code 运行
+对某些特殊的代码（一般是 `javascript` 的 `canvas`），可以在线运行预览了。
+
+在 `.md` 内代码块第一行添加：
+
+```
+#run: canvas	
+```
+
+解析时，程序会为该代码块分配一个写好的 *canvas* 运行环境（*iframe*）。
+
+#### live code bugfix
+##### 描述
+运行代码，是通过一个新组件 `<LiveCode />` 实现的，是 `<Content />` 的一个子组件。
+
+由于需要通过 *iframe* 控制，而不巧的，`<Content />` 的顶级 *wrapper* 使用了 `transform` 属性，故置于其中的元素不能使用 `position: fixed;` 浮起来了。
+
+只能把 `<LiveCode />` 作为一个实现层，编译好代码后，挂载到 `<App />` 下的 `live-code-wrapper` 中。
+
+```html
+<!--APPComponent render()-->
+
+<div className="blog" id="blog">
+	<!-- ... -->
+	<div className="overlay live-code" onClick={ this.__closeLiveCodeLayer }>
+	    <div id="live-code-wrapper">
+	        <span className="close" onClick={ this.__closeLiveCodeLayer }>x</span>
+	    </div>
+	</div>
+</div>
+```
+
+这个时候便会触发一个比较尴尬的问题，`<Content />` 不知道 *live-code-wrapper* (*overlay*) 什么时候被关闭了，会不断的触发其子组件 `<LiveCode />` 的 **`componentWillReceiveProps`** 方法。
+
+造成关闭 `overlay` 后，点击文章中任意链接仍会触发 `<LiveCode />` 中的编译挂载（上一个被关闭的运行结果不断浮出来）。
+
+##### 解决
+在 `<Content />` 传递给 `<LiveCode />` 的参数中，追加一个唯一串（每次点击 `run the code` 的时候自动更新），用来区分此时（`<LiveCode />`）是否需要运行代码。
+
+```javascript
+if(this.props.uuid !== props.uuid) {
+
+	//generate the code & refresh the iframe 
+	
+}
+```
+	
+
+### 16.12.16
+#### 增加了分页支持
+<del>目前还没支持刷新，有点懒得写呀 23333</del>
+
+后边重新增加了 404.html，可以刷新了。	
+
 ## 维护
 
 ### 16.9.8
@@ -354,54 +412,6 @@ plain: true
 会在文章处，获得一个段落缩进的效果。
 
 
-### 16.11.7
-#### live code 运行
-对某些特殊的代码（一般是 `javascript` 的 `canvas`），可以在线运行预览了。
-
-在 `.md` 内代码块第一行添加：
-
-```
-#run: canvas	
-```
-
-解析时，程序会为该代码块分配一个写好的 *canvas* 运行环境（*iframe*）。
-
-#### live code bugfix
-##### 描述
-运行代码，是通过一个新组件 `<LiveCode />` 实现的，是 `<Content />` 的一个子组件。
-
-由于需要通过 *iframe* 控制，而不巧的，`<Content />` 的顶级 *wrapper* 使用了 `transform` 属性，故置于其中的元素不能使用 `position: fixed;` 浮起来了。
-
-只能把 `<LiveCode />` 作为一个实现层，编译好代码后，挂载到 `<App />` 下的 `live-code-wrapper` 中。
-
-```html
-<!--APPComponent render()-->
-
-<div className="blog" id="blog">
-	<!-- ... -->
-	<div className="overlay live-code" onClick={ this.__closeLiveCodeLayer }>
-	    <div id="live-code-wrapper">
-	        <span className="close" onClick={ this.__closeLiveCodeLayer }>x</span>
-	    </div>
-	</div>
-</div>
-```
-
-这个时候便会触发一个比较尴尬的问题，`<Content />` 不知道 *live-code-wrapper* (*overlay*) 什么时候被关闭了，会不断的触发其子组件 `<LiveCode />` 的 **`componentWillReceiveProps`** 方法。
-
-造成关闭 `overlay` 后，点击文章中任意链接仍会触发 `<LiveCode />` 中的编译挂载（上一个被关闭的运行结果不断浮出来）。
-
-##### 解决
-在 `<Content />` 传递给 `<LiveCode />` 的参数中，追加一个唯一串（每次点击 `run the code` 的时候自动更新），用来区分此时（`<LiveCode />`）是否需要运行代码。
-
-```javascript
-if(this.props.uuid !== props.uuid) {
-
-	//generate the code & refresh the iframe 
-	
-}
-```
-
 
 ### 16.11.18
 #### 重写了文件 build 时的生成规则
@@ -443,15 +453,6 @@ bogon:code_b azlar$ node build.js -new 'wewe-ewasd asdas'
 <del>采用了一个原生的库：[https://github.com/verlok/lazyload](https://github.com/verlok/lazyload)</del>
 
 暂时先去掉了，效果并不好，一直加载图片资源的问题（disable_cache 下，如果打开某篇文章后再打开别的文章，此时会卡住，必须等到上一篇文章的资源加载完毕），是由于文章都使用同一个 `Component` 导致的，得想办法处理。
-
-
-### 16.12.16
-#### 增加了分页支持
-<del>目前还没支持刷新，有点懒得写呀 23333</del>
-
-后边重新增加了 404.html，可以刷新了。
-
-
 
 
 ### 16.12.20
