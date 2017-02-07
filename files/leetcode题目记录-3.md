@@ -235,7 +235,7 @@ public class Solution {
 感觉这题，挺难想到的。
 
 
-# 11.2
+# 17.2.7
 
 ## 12. Integer to Roman
 ### problem
@@ -243,7 +243,7 @@ Given an integer, convert it to a roman numeral.
 
 Input is guaranteed to be within the range from 1 to 3999.
 
-### solution
+### solution (195ms - 85.16%)
 #### Roman numerals rules
 先看下罗马数字的规则：
 > 罗马数字是阿拉伯数字传入之前使用的一种数码。罗马数字采用七个罗马字母作数字、即Ⅰ（1）、X（10）、C（100）、M（1000）、V（5）、L（50）、D（500）。
@@ -255,12 +255,103 @@ Input is guaranteed to be within the range from 1 to 3999.
 > 3. 小的数字（限于 Ⅰ、X 和 C）在大的数字的左边，所表示的数等于大数减小数得到的数，如 Ⅳ=4、Ⅸ=9；
 > 4. 在一个数的上面画一条横线，表示这个数增值 1,000 倍，如 <span style="text-decoration: overline;">V</span> = 5000。
 
+#### 分析
+题目比较简单，规律比较好找（当然如果不知道罗马数字规则就无从下手了）。我的解法就属于最简单的硬套。
+
+给出的算法可以算到 `1(I) ~ 4999(MMMMCMXCIX)`。
+
+一个列表：[http://www.tuomas.salste.net/doc/roman/numeri-romani-1-5000.html](http://www.tuomas.salste.net/doc/roman/numeri-romani-1-5000.html)。
 
 #### code
 ```javascript
+/**
+ * @param {number} num
+ * @return {string}
+ */
+var intToRoman = function(num) {
+    /*
+    var Tho = Math.floor(num / 1000),
+        Hun = Math.floor((num - Tho * 1000) / 100),
+        Ten = Math.floor((num - Tho * 1000 - Hun * 100) / 10),
+        Num = Math.floor((num - Tho * 1000 - Hun * 100 - Ten * 10));
+	 */
+        
+    var Tho = Math.floor(num / 1000),
+        Hun = Math.floor(num % 1000 / 100),
+        Ten = Math.floor(num % 100 / 10),
+        Num = Math.floor(num % 10);
 
+    var str = '';
+
+    //get Tho
+    for(let i = 0;i < Tho;i++) {
+        str += 'M';
+    }
+
+    //get Hun
+    str += _getStrByNum(Hun, 'C', 'D', 'M');
+
+    //get Ten
+    str += _getStrByNum(Ten, 'X', 'L', 'C');
+
+    //getNum
+    str += _getStrByNum(Num, 'I', 'V', 'X');
+
+    // console.log(str);
+    return str;
+};
+
+function _getStrByNum(num, I, V, X) {
+    let str = '';
+    if(num == 4) {
+        str =  I + V;
+    }
+    else if(num == 9) {
+        str =  I + X;
+    }else {
+        str += num >= 5 ? V : '';
+        let count = num >= 5 ? num - 5 : num;
+
+        for(let i = 0;i < count;i++) {
+            str += I;
+        }
+    }
+
+    return str;
+}
+```
+
+### other good solutions
+选了几个官方 tab 里的答案，比我的优雅多了。。![](//blog.azlar.cc/images/emoji/facepalm.jpg)
+
+```java
+public static String intToRoman(int num) {
+    String M[] = {"", "M", "MM", "MMM"};
+    String C[] = {"", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"};
+    String X[] = {"", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"};
+    String I[] = {"", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"};
+    return M[num/1000] + C[(num%1000)/100] + X[(num%100)/10] + I[num%10];
+}
 ```
 
 
+```java
+public class Solution {
+public String intToRoman(int num) {
 
+    int[] values = {1000,900,500,400,100,90,50,40,10,9,5,4,1};
+    String[] strs = {"M","CM","D","CD","C","XC","L","XL","X","IX","V","IV","I"};
+    
+    StringBuilder sb = new StringBuilder();
+    
+    for(int i=0;i<values.length;i++) {
+        while(num >= values[i]) {
+            num -= values[i];
+            sb.append(strs[i]);
+        }
+    }
+    return sb.toString();
+}
+}
+```
  
