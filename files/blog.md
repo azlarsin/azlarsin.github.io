@@ -13,16 +13,17 @@ ignore: false
 ## todo
 ### 功能
 - <del>根据 `Widget` 宽度与 `Tags`、`Articles` 的字体大小计算其最大显示字符数</del>
-- `List` 样式 （page 的 comments 数量）
+- `List` 样式 （page 的 comments 数量、样式）
 - `Article` 样式
 - <del>**`Pagination`**</del>
 - <del> `build.js` 移动文件问题（现在需要 sudo 权限，由于有一个 `.DS_STORE` 文件存在） </del>
 - <del>`build.js` => `new post`（命令生成 `yaml` 配置文件）</del>
-- `List` 评论数量、样式
 - 归档
 - SEO （sitemap）
 - <del> !!! github pages **static html map** </del>
 - 初次加载的时候，`config.json` 请求了两次：`Widget` 与 `ListComponent` 同时发起了 `ajax` 请求
+- 列表筛选，最后更新时间（由于很多流水账会在不同时间续写）
+
 
 ### bugs
  - [tootip of tags](#toc_18)
