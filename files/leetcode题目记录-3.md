@@ -258,7 +258,7 @@ Input is guaranteed to be within the range from 1 to 3999.
 #### 分析
 题目比较简单，规律比较好找（当然如果不知道罗马数字规则就无从下手了）。我的解法就属于最简单的硬套。
 
-给出的算法可以算到 `1(I) ~ 4999(MMMMCMXCIX)`。
+给出的算法可以算到 `1(I) ~ 3999(MMMMCMXCIX)`，因为 4000 的表现形式需要用到 <span style="text-decoration: overline;">V</span>(5000)。
 
 一个列表：[http://www.tuomas.salste.net/doc/roman/numeri-romani-1-5000.html](http://www.tuomas.salste.net/doc/roman/numeri-romani-1-5000.html)。
 
