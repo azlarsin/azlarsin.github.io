@@ -78,13 +78,13 @@ $ echo "git ALL=(ALL)       NOPASSWD: ALL" >>/etc/sudoers
 	```
 	
 2. Add the GitLab package server and install the package （可事先修改为 [清华源](https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/)）
-	```SHELL
+	```
 	curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh | sudo bash
 	sudo yum install gitlab-ce
 	```	
 	
 3. Configure and start GitLab
-	```SHELL
+	```
 	sudo gitlab-ctl reconfigure
 	```
 		
