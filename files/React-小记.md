@@ -1,7 +1,7 @@
 title: React 小记
 author: azlar
 date: '2017-03-10 14:05:36'
-tags: [react, react-router]
+tags: [react, react router]
 
 ---
 
