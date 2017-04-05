@@ -86,7 +86,7 @@ class ChildComponent extends React.Component {
 //parent-render
 <ParentComponent >
     <ChildComponent data={ data } key={ "child-" + data.id }  />
-</Parent
+</ParentComponent>
 
 //child
 class ChildComponent extends React.Component {
@@ -111,6 +111,7 @@ class ChildComponent extends React.Component {
 
     //...render
 }
+```
 
 ### 另
 最好不要给子组建定义 state，能直接使用 props，坚决不定义 state。
