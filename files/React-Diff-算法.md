@@ -130,7 +130,7 @@ boolean shouldComponentUpdate(object nextProps, object nextState)
 
 
 ## 结论
-让 React 变快的技术不是新的：我们很早就已知道访问 DOM 代价很昂贵，你得将读写操作批量处理，事件委派器速度更快一点...
+让 React 变快的并不是什么新技术：我们很早就已知道访问 DOM 代价很昂贵，你得将读写操作批量处理，事件委派器速度更快一点...
 
 人们仍然谈论它们，是由于在实践中，它们很难在寻常的 JavaScript 代码中实现。React 得以突出的缘故在于所有的优化会默认执行。这使得搬起石头砸自己的脚和让你的 app 变慢变得很难。
 
