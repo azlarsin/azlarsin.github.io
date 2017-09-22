@@ -1,7 +1,7 @@
 title: React - 虚拟 dom 与 dom 的差异
 author: Bartosz Krajka 
 date: '2017-04-05 19:09:50'
-tags: [ react, vritual dom, difference between virtual dom and dom]
+tags: [ react, virtual dom, difference between virtual dom and dom]
 from: http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/
 
 ---
