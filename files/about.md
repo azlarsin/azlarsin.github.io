@@ -17,8 +17,8 @@ ignore: true
 
 ### 欢迎联系~
 
-* #### [mail](mailto://azlarsin@gmail.com)
+* #### [azlarsin[at]gmail.com](mailto://azlarsin@gmail.com)
 
-* #### [github](https://github.com/azlarsin)
+* #### [github.com/azlarsin](https://github.com/azlarsin)
 
 
