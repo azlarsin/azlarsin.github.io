@@ -23,6 +23,8 @@ ignore: false
 - <del> !!! github pages **static html map** </del>
 - 初次加载的时候，`config.json` 请求了两次：`Widget` 与 `ListComponent` 同时发起了 `ajax` 请求
 - 列表筛选，最后更新时间（由于很多流水账会在不同时间续写）
+- time-line 与 archive
+- build 脚本新功能，自动部署到仓库
 
 
 ### bugs
@@ -515,3 +517,68 @@ if (e.currentTarget.scrollTop === 0 && e.deltaY < 0) {
 于是为 onWheel 增加了一个 `if(isMouseOver)` 判断，`isMouseOver` 会在 `onMouseEnter` 与 `onScroll` 时设定为 *true*，`onMouseLeave` 的时候设定为 *false*。
 
 P.S. `onScroll` 修改 `isMouseOver`，是因为 mac 支持无焦点滚动，这时候当前页面没有获取到系统的焦点、`mouseEnter` 并不会触发。
+
+
+### 17.9.22
+改了很多东西。。
+
+#### loading 重做
+#### webpack 压缩重写
+##### 分段
+文件分为 `vendor.js` 与 `main.js`，另外把 `css` 文件也拆出去了。
+
+##### 文件版本号
+由于之前没有版本控制（其实主要是面试被问到这个），于是突发奇想，为项目配一个版本号，使用 webpack 插件的形式书写：
+
+```js
+// webpack config ...
+plugins: {
+    function() {
+        this.plugin("done", function(statsData) {
+            let stats = statsData.toJson();
+
+            fs.writeFile("bundle-info.json", JSON.stringify(stats, null, 2), () => {});
+
+            if (!stats.errors.length) {
+
+                let publicPath = path.resolve(__dirname, "build"),
+                    files = ["index.html", "404.html"],
+                    css = stats.assetsByChunkName.app.find(assetName => path.extname(assetName) === ".css" ) || "main.css";
+
+                files.map(fileName => {
+                    let filePath = path.resolve(publicPath, fileName),
+                        html = fs.readFileSync(filePath, "utf8");
+
+                    if(html) {
+                        let htmlOutput = html
+                            .replace(/<script src="(.*)"><\/script>[\r\n]*<script src="(.*)"><\/script>/g, `<script src="//blog.azlar.cc/${stats.assetsByChunkName.vendor[0]}"></script>\r\n<script src="//blog.azlar.cc/${stats.assetsByChunkName.app[0]}"></script>`)
+                            .replace(/link rel="stylesheet" href="(.*)"/g, `link rel="stylesheet" href="//blog.azlar.cc/${css}"`);
+
+                        fs.writeFileSync(filePath, htmlOutput);
+                    }
+                });
+            }
+
+
+            //delete junk files
+            let allFiles = new Set(fs.readdirSync(path.resolve(__dirname, "build"))),
+                assetNames = new Set(stats.assets.map(asset => asset.name).concat([stats.assetsByChunkName.vendor]));
+
+            let junkFiles = new Set([...allFiles].filter(x => !assetNames.has(x)));
+
+            // console.log(junkFiles);
+
+            for(let fileName of junkFiles) {
+                if([".js", ".css", ".map"].indexOf(path.extname(fileName)) !== -1) {
+                    fs.unlink(path.resolve(__dirname, "build", fileName), () => {});
+                }
+            }
+        });
+    }
+}
+```
+
+这样就可以在打包后自动替换相关文件了，在 dev 模式中，可以直接输出到普通文件，这样就可以继续使用 debug 了。
+
+#### webpack 压缩过大
+主要原因是使用了 `node-uuid` 这个库，加载了过多依赖。
