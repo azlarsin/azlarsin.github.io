@@ -659,3 +659,7 @@ plugins: {
 
 #### webpack 压缩过大
 主要原因是使用了 `node-uuid` 这个库，加载了过多依赖。
+
+
+### 17.10.4
+Articles 挂件中 Related Post 的链接有点问题，缺失最后的 '/'。
