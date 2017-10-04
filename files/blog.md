@@ -25,6 +25,7 @@ ignore: false
 - 列表筛选，最后更新时间（由于很多流水账会在不同时间续写）
 - time-line 与 archive
 - build 脚本新功能，自动部署到仓库
+- 表格问题，macdown 的表哥，marked 貌似不支持，需要自己分析下
 
 
 ### bugs
@@ -297,6 +298,81 @@ if(this.props.uuid !== props.uuid) {
 ### 17.2.7
 #### 为代码块增加了语言显示
 在代码块右上角增加了代码语言显示。
+
+### 17.10.3 - 17.10.4
+自己从自己的中秋礼物，keep going~~
+
+#### react react router 升级
+放弃了 router 2.x，拥抱新变化吧，升级的过程还是蛮有意思的。
+```json
+{
+	"react": "^16.0.0",
+	"react-dom": "^16.0.0",
+	"react-router": "^4.2.0",
+	"react-router-dom": "^4.2.2",
+	"whatwg-fetch": "^2.0.3"
+}
+```
+
+router change: 
+
+```js
+ReactDom.render(
+    <Router history={ history } onUpdate={ logPageView } >
+        <Route path="/" component={App} BaseOrigin={BaseOrigin}>
+
+            <Route path='article/:articleName(/:ext)/' component={Content} />
+
+            <Route path='about/' component={ Content } params={{ articleName: 'about' }} />
+
+            <Route path='(tag/:tag/)(p/:p/)' component={ List } />
+
+            <Route path="t" component={ Test } />
+
+            <Route path="*" component={ List } onEnter={ enter }/> />
+
+            <IndexRoute component={ List } />
+        </Route>
+    </Router>
+    ,
+    document.getElementById('qwe')
+);
+```
+to:
+
+```jsx
+// in AppComponent
+<Route path="/" component={ this.props.logPageView } />
+<Switch>
+    <Route path='/article/:articleName/:ext?/' component={ Content } />
+    <Route path='/about/' render={ (props) => <Content { ...props } articleName={'about'} /> } />
+
+    <Route path="/p/:p/" component={ List } />
+
+    <Route path="/tag/:tag/" component={ List } />
+
+    <Route path="/tag/:tag/p/:p?" component={ List } />
+
+    <Route path={ '/(tag/:tag/)?(p/:p/)?' } component={ List } />
+
+    <Route path="*" component={ List } />
+</Switch>
+```
+
+#### 改写、优化
+现在看以前的代码，真是设计的惨不忍睹，很多地方重复性太高、结构太复杂（乱）；用 childContext 改写了一部分，设计了一小部分新逻辑。
+
+另外使用了 fetch，具体的还得测试。
+
+#### remove jquery
+最近很长一段时间，精力都在原生 js 上，所以这次下笔写，还蛮快的，也没怎么查文档（AC...），包的体积又小了很多（笑...）
+
+#### 一点点心得
+学习的过程是个积累的过程，尤其是思维逻辑上的学习、自我理解，只有用的时候才会感觉到，自己有没有变强。（喂，是在吐槽自己去年的代码太呕吐了么。。。。）
+
+
+
+
 
 
 
