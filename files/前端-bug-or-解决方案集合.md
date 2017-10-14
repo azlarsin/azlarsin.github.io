@@ -25,6 +25,46 @@ dom.addEventListener("dragstart", function (e){
 ```
 
 #### 参考
-[https://stackoverflow.com/questions/19055264/why-doesnt-html5-drag-and-drop-work-in-firefox](https://stackoverflow.com/questions/19055264/why-doesnt-html5-drag-and-drop-work-in-firefox)
+> [https://stackoverflow.com/questions/19055264/why-doesnt-html5-drag-and-drop-work-in-firefox](https://stackoverflow.com/questions/19055264/why-doesnt-html5-drag-and-drop-work-in-firefox)
+> 
+> [https://stackoverflow.com/questions/12803235/drag-and-drop-not-working-in-ie-javascript-html5](https://stackoverflow.com/questions/12803235/drag-and-drop-not-working-in-ie-javascript-html5)
 
-[https://stackoverflow.com/questions/12803235/drag-and-drop-not-working-in-ie-javascript-html5](https://stackoverflow.com/questions/12803235/drag-and-drop-not-working-in-ie-javascript-html5)
+
+### 编写 npm 包时本地调试
+#### npm link
+```bash
+cd ~/projects/node-redis    # go into the package directory
+npm link                    # creates global link
+cd ~/projects/node-bloggy   # go into some other package directory.
+npm link redis              # link-install the package
+```
+
+or
+
+```bash
+cd ~/projects/node-bloggy  # go into the dir of your main project
+npm link ../node-redis     # link the dir of your dependency
+
+# The second line is the equivalent of doing:
+# (cd ../node-redis; npm link)
+# npm link node-redis
+
+```
+
+#### npm unlink
+```bash
+npm unlink redis
+npm install
+```
+
+or
+
+```bash
+sudo npm rm --global foo
+npm ls --global foo
+```
+
+#### 参考
+> [https://docs.npmjs.com/cli/link](https://docs.npmjs.com/cli/link)
+> 
+> [https://stackoverflow.com/questions/19094630/how-do-i-uninstall-a-package-installed-using-npm-link](https://stackoverflow.com/questions/19094630/how-do-i-uninstall-a-package-installed-using-npm-link)
