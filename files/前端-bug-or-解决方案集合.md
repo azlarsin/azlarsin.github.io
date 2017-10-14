@@ -15,6 +15,7 @@ tags: []
 火狐的拖拽机制需要用户设置 setData 才会生效。
 
 另： 设置　`text/html`　可以防止火狐拖拽结束后打开新窗口。
+
 另2：若需在 IE 下使用，只能设置 `setData('text', something)`。
 
 ```js
@@ -22,3 +23,8 @@ dom.addEventListener("dragstart", function (e){
 	e.dataTransfer.setData('text/html', null);
 });
 ```
+
+#### 参考
+[https://stackoverflow.com/questions/19055264/why-doesnt-html5-drag-and-drop-work-in-firefox](https://stackoverflow.com/questions/19055264/why-doesnt-html5-drag-and-drop-work-in-firefox)
+
+[https://stackoverflow.com/questions/12803235/drag-and-drop-not-working-in-ie-javascript-html5](https://stackoverflow.com/questions/12803235/drag-and-drop-not-working-in-ie-javascript-html5)
