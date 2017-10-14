@@ -372,7 +372,20 @@ to:
 学习的过程是个积累的过程，尤其是思维逻辑上的学习、自我理解，只有用的时候才会感觉到，自己有没有变强。（喂，是在吐槽自己去年的代码太呕吐了么。。。。）
 
 ### 17.10.14
+#### 优化
 改了下 content 页内，作者与日期、标题的样式。
+
+生成了 manifest.js 文件，并将所有资源文件移入 'assets' 文件夹。
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -664,3 +677,27 @@ plugins: {
 
 ### 17.10.4
 Articles 挂件中 Related Post 的链接有点问题，缺失最后的 '/'。
+
+### 17.10.14
+修正了 webpack 每次生成文件时，vendor.[chunkhash].js 的 hash 会改变的问题：
+
+```js
+{
+	output: {
+		path: path.resolve(__dirname, "build", "assets"),
+		// filename: 'main.[chunkhash:6].js'
+		filename: "[name].[chunkhash:6].js"
+	},
+ 
+	plugins: [
+		new webpack.optimize.CommonsChunkPlugin({
+		    name: [ "vendor", "manifest" ],
+		    path: path.resolve(__dirname, "build", "assets"),
+		    // filename: "vendor.[chunkhash:6].js",
+		    // minChunks: Infinity,
+		}),   
+	]
+}
+```
+
+参考：[https://github.com/webpack/webpack/issues/1315](https://github.com/webpack/webpack/issues/1315)
