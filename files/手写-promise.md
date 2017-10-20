@@ -28,8 +28,6 @@ resolve 与 reject 操作，可简单理解为：
 
 ### 粗略实现
 ```javascript
-#run: canvas
-
 "use strict";
 function promise(userDefineFunction) {
     this.status = "pending";
@@ -106,4 +104,115 @@ new promise((resolve, reject) => {
 });
 
 // TypeError: Cannot read property 'catch' of undefined
+```
+
+## 用 setInterval 显然 low 的一匹
+### v2(70%)
+增加了 cb，通过这种方式，可以保证正常的回调序列，而不是派一个 interval 驻守。
+
+还有部分东西没写完；测试还没测，估计过不了。
+
+```javascript
+"use strict";
+
+function Promise(userDefineFunction) {
+    this.status = "pending";
+    this.data = undefined;
+
+    this.resolveCbs = [];
+    this.rejectCbs = [];
+
+    let resolve, reject;
+
+    resolve = (value) => {
+
+        if(this.status === "pending") {
+
+            this.status = "fulfilled";
+            this.data = value;
+
+            this.resolveCbs.map(foo => {
+                foo(this.data);
+            });
+        }
+    };
+
+    reject = (errMsg) => {
+        this.status = "rejected";
+
+        // this.data = err;
+
+        this.rejectCbs.map(foo => {
+            console.log(foo);
+            foo(errMsg);
+        });
+    };
+
+
+    try {
+        userDefineFunction(resolve, reject);
+    }catch (e) {
+        reject(e);
+    }
+}
+
+
+Promise.prototype.then = function(resolveFoo, rejectFoo) {
+
+    resolveFoo = typeof resolveFoo === 'function' ? resolveFoo : () => {};
+    rejectFoo = typeof rejectFoo === 'function' ? rejectFoo : () => {};
+
+    if(this.status === "fulfilled") {
+        return new Promise((resolve, reject) => {
+
+
+            // resolveFoo(this.data);
+
+        });
+    }
+
+    if(this.status === "pending") {
+        // return new Promise((resolve, reject) => {
+
+            this.resolveCbs.push(resolveFoo);
+
+            this.rejectCbs.push(rejectFoo);
+
+        // });
+    }
+
+    if(this.status === "rejected") {
+        this.rejectCbs.push(rejectFoo);
+    }
+
+    // console.log(this.status, this.resolveCbs);
+
+    return this;
+};
+
+Promise.prototype.catch = function(rejectFunction) {
+
+    this.then(null, rejectFunction);
+
+    return this;
+};
+
+
+
+new Promise((resolve, reject) => {
+    try {
+        setTimeout(function () {
+            resolve(2222);
+
+            reject(2);
+        }, 1000);
+    }catch (e) {
+        reject(e);
+    }
+
+}).then((resolveValue) => {
+    console.log("fulfilled", resolveValue);
+}).catch(e => {
+    console.log("rejected", e);
+});
 ```

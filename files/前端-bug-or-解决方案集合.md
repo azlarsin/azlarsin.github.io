@@ -68,3 +68,51 @@ npm ls --global foo
 > [https://docs.npmjs.com/cli/link](https://docs.npmjs.com/cli/link)
 > 
 > [https://stackoverflow.com/questions/19094630/how-do-i-uninstall-a-package-installed-using-npm-link](https://stackoverflow.com/questions/19094630/how-do-i-uninstall-a-package-installed-using-npm-link)
+
+
+### webpack 打包 vendor.js 的 hash 值每次都会变化
+```js
+{
+	output: {
+		path: path.resolve(__dirname, "build", "assets"),
+		// filename: 'main.[chunkhash:6].js'
+		filename: "[name].[chunkhash:6].js"
+	},
+ 
+	plugins: [
+		new webpack.optimize.CommonsChunkPlugin({
+		    name: [ "vendor", "manifest" ],
+		    path: path.resolve(__dirname, "build", "assets"),
+		    // filename: "vendor.[chunkhash:6].js",
+		    // minChunks: Infinity,
+		}),   
+	]
+}
+```
+
+#### 参考
+> [https://github.com/webpack/webpack/issues/1315](https://github.com/webpack/webpack/issues/1315)
+> 
+> CommonsChunkPlugin marks [first chunk](https://github.com/webpack/webpack/blob/master/lib/optimize/CommonsChunkPlugin.js#L47) as [Entry-chunk](https://webpack.github.io/docs/code-splitting.html#entry-chunk), which 'contains the runtime plus a bunch of modules'.
+> 
+> You can solve it by creating separate 'entry chunk':
+> 
+> plugins: [
+>		
+>	new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
+> 
+> 	new webpack.optimize.CommonsChunkPlugin({name: 'meta', chunks: ['vendor']})
+> 
+> ]
+> 
+> It marks meta.js as entry chunk instead vendors.js.
+
+> As result you'll get three files:
+
+> - main.[hash from app content].js
+> 
+> - vendor.[hash from vendors content].js
+> 
+> - meta.[hash].js – webpack runtime, which hash depends on an app and vendors file names
+
+
