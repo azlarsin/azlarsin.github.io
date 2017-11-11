@@ -1,4 +1,4 @@
 # azlarsin.github.io
 Azlar`s Library
 
-This would be a blog by azlar.
+see: [https://blog.azlar.cc](https://blog.azlar.cc)
