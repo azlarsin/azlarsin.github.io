@@ -2,14 +2,16 @@
 
 node_modules
 
-/.idea
+**/.idea
 
-#.htaccess
+.htaccess
 
 /test
-
-*/.DS_Store
 
 .DS_Store
 
 #main.js
+
+*-dev.*
+
+**/.DS_Store

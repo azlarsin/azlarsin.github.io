@@ -1,4 +1,2 @@
-# azlarsin.github.io
-Azlar`s Library
+see [blog.azlar.cc](https://blog.azlar.cc)
 
-see: [https://blog.azlar.cc](https://blog.azlar.cc)
